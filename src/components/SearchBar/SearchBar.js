@@ -12,7 +12,7 @@ class SearchBar extends Component{
                 <form>
                     <Input action='Search' className="search-bar" fluid placeholder='Search for free images' icon='search' iconPosition='left' />
                 </form>
-                <h3 className="suggestion">Suggested: animals, sports, nature, astronomy, network, more</h3>
+                <h3 className="license">Read more about the  <a href="https://unsplash.com/license">Unsplash License</a></h3>
               </div>
             </div>
         )
