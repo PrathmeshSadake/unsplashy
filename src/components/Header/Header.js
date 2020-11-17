@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 
 import { Image } from 'semantic-ui-react'
 
+
 import './header.css';
 import SearchBar from '../SearchBar/SearchBar';
+import GithubButton from '../GithubButton/GithubButton';
+
 
 class Header extends Component{
 
@@ -16,6 +19,7 @@ class Header extends Component{
             <div className="header" >
                 <Image className="img" fluid/>
                 <SearchBar/>
+                <GithubButton/>
             </div>
         )
     }
