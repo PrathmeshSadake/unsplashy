@@ -1,0 +1,18 @@
+.header {
+    height: 600px;
+    width: 100vw;
+    overflow: hidden;
+    background: linear-gradient(rgba(58, 59, 61, 0.8), rgba(8, 8, 8, 0.8)), url("https://bit.ly/2rlzaXi");
+    background-size: 100%;
+}
+
+.img {
+   object-fit: cover;
+}
+
+@media only screen and (max-width: 600px) {
+    .header {
+      height: 250px;
+      width: 100%;
+    }
+  }
