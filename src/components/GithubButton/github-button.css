@@ -1,0 +1,15 @@
+.github-container{
+    position: relative;
+    margin-top: -550px;
+    height: 200px;
+    width: 200px;
+}
+
+.github{
+    font-size: 200px;
+    width: 200px;
+    color: white;
+    position: absolute;
+    top: 150px;
+    left: 50px;
+}
