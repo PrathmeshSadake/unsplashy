@@ -2,24 +2,44 @@ import React, { Component } from 'react';
 
 import { Image } from 'semantic-ui-react'
 
-
+import Unsplash from '../../api/unsplash';
 import './header.css';
-import SearchBar from '../SearchBar/SearchBar';
 import GithubButton from '../GithubButton/GithubButton';
+import SearchBar from '../SearchBar/SearchBar';
+// import ImageGrid from '../ImageGrid/ImageGrid';
 
 
 class Header extends Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            images : []
+        }
+    }
 
-    index = Math.floor(Math.random() * 5);
-    arr = ["https://images.unsplash.com/photo-1559823317-161d069eea27?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80", "https://images.unsplash.com/photo-1605309367703-fc6e040816bf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80", "https://images.unsplash.com/photo-1604932292784-ce6b48294afc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80", "https://images.unsplash.com/photo-1605190274566-aa85a45fa0d8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1355&q=80","https://images.unsplash.com/photo-1600073956897-4fc08a2b27d0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1351&q=80"];
-    imageSource = this.arr[this.index];
+    onSearchSubmit = async (input) => {
+       const response = await Unsplash.get('search/photos', {
+            params: { 
+                query: input,
+                per_page: 50,
+                // orientation: 'landscape',
+             },
+        });
+
+        console.log(response.data.results);
+
+        this.setState({ images: response.data.results });
+    }
+
 
     render(){
         return(
             <div className="header" >
                 <Image className="img" fluid/>
-                <SearchBar/>
+                <SearchBar onSubmit={this.onSearchSubmit}/>
+                {console.log(this.state.images.length)}
                 <GithubButton/>
+                {/* <ImageGrid images={this.state.images} /> */}
             </div>
         )
     }

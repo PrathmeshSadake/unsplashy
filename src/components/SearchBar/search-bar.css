@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@200&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@200&display=swap'); */
 
 .container{
     margin: 200px 300px 0 300px;
@@ -23,7 +23,7 @@
     word-wrap: break-word;
     font-size: 14px;
     color: whitesmoke;
-    font-family: 'Roboto', sans-serif;
+    /* font-family: 'Roboto', sans-serif; */
     
 }
 .license a{
