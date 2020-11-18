@@ -2,7 +2,7 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@200&display=swap'); */
 
 .container{
-    margin: 200px 300px 0 300px;
+    margin: -400px 300px 0 300px;
 }
 
 .inner-container{
@@ -17,18 +17,18 @@
     word-wrap: break-word;
     font-family: 'Montserrat', sans-serif;
     font-size: 45px;
-    color: white;
+    color: black;
 }
 .license{
     word-wrap: break-word;
     font-size: 14px;
-    color: whitesmoke;
+    color: black;
     /* font-family: 'Roboto', sans-serif; */
     
 }
 .license a{
     text-decoration: none;
-    color: white;
+    color: black;
     font-weight: 900;
 }
 
