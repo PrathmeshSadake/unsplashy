@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Input } from 'semantic-ui-react';
-import InfiniteScroll from 'react-infinite-scroll-component';
 
-import '../SearchBar/search-bar.css';
+
 import ImageGrid from '../ImageGrid/ImageGrid';
 import accessKey from '../../api/unsplashAccessKey';
+
+import './input-form.css';
 
 function InputForm() {
 
@@ -44,16 +45,16 @@ function InputForm() {
     }
   
     return (
-      <div className="app">
+      <div>
+        <div className="search-container">
         <form onSubmit={handleSearchSubmit} >
-          <Input type="text" placeholder="Search Unsplash" onChange={handleInputChange} value={query} />
-          <button>Search</button>
+          <Input className="form" type="text" action="search" icon='search' iconPosition='left' placeholder="Search for high-resolution images" onChange={handleInputChange} value={query} />
         </form>
-  
-        <InfiniteScroll dataLength={images.length} next={() => setPage((page)=>page + 1)} hasMore={true} loader={<h1>loading...</h1>}>
-        <ImageGrid images={images} />
-        </InfiniteScroll>
-      </div>
+        <h3 className="license">Read more about the  <a href="https://unsplash.com/license">Unsplash License</a></h3>
+        </div>
+        <ImageGrid images={images} next={() => setPage((page)=>page + 1)}/>
+       </div>
+
     );
   }
 
