@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
+
+.form{
+    width: 50%;
+    margin-bottom: -50px;
+}
+
+.license{
+    word-wrap: break-word;
+    font-size: 14px;
+    color: rgb(179, 175, 175);
+    font-family: 'Roboto', 'Lato', sans-serif;
+}
+
+.license a{
+    text-decoration: none;
+    color: rgb(202, 196, 196);
+    font-weight: 900;
+}
+
+.license a:hover{
+    text-decoration: none;
+    color: white;
+    font-weight: 900;
+}
+
+.search-container{
+    margin: 50px 0 180px 540px;
+    width: 65%;
+}

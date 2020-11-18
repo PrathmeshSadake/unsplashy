@@ -1,16 +1,7 @@
-.github-container{
-    position: relative;
-    margin: 50px 0 0 50px;
-    /* height: 200px;
-    width: 200px; */
-}
-
 .github{
-    font-size: 200px;
-    width: 200px;
-    color: white;
     position: absolute;
-    top: 10px;
-    left: 10px;
-    z-index: 10;
+    color: white;
+    top: 50px;
+    left: 50px;
+    z-index: 1;
 }
