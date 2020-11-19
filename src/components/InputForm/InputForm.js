@@ -48,7 +48,7 @@ function InputForm() {
       <div>
         <div className="search-container">
         <form onSubmit={handleSearchSubmit} >
-          <Input className="form" type="text" action="search" icon='search' iconPosition='left' placeholder="Search for high-resolution images" onChange={handleInputChange} value={query} />
+          <Input className="form" type="text" action="search" icon='search' iconPosition='left' placeholder="Search for free images" onChange={handleInputChange} value={query} />
         </form>
         <h3 className="license">Read more about the  <a href="https://unsplash.com/license">Unsplash License</a></h3>
         </div>
