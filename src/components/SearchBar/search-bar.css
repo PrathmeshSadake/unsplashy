@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&display=swap');
 
 .container{
-    margin: -400px 300px 0 300px;
+    margin: -400px 300px 0 350px;
 }
 
 .inner-container{
-    margin: 10px 150px;
+    margin: 10px 185px;
 }
 
 .heading{
@@ -18,10 +18,13 @@
 
 @media only screen and (max-width: 600px) {
     .container{
-        margin: 100px auto;
+        margin: -275px 5px 10px 10px;
     }
     .inner-container{
-        margin: 0;
+        margin: 10px 15px;
+    }
+    .heading{
+        font-size: 25px;
     }
     
     .search-bar{

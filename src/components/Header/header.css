@@ -3,16 +3,18 @@
     width: 100vw;
     overflow: hidden;
     background: linear-gradient(rgba(58, 59, 61, 0.8), rgba(8, 8, 8, 0.8)), url("https://images.unsplash.com/photo-1498084393753-b411b2d26b34?ixlib=rb-1.2.1&auto=format&fit=crop&w=2089&q=80");
-    background-size: 100%;
+    /* background-size: 100%; */
 }
 
 .img {
    object-fit: cover;
+   height: 100%;
 }
 
 @media only screen and (max-width: 600px) {
     .header {
-      height: 250px;
+      height: 350px;
       width: 100%;
+      background-repeat: no-repeat;
     }
   }
