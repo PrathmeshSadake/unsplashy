@@ -1,7 +1,11 @@
+.github-container{
+    position: relative;
+}
+
 .github{
     position: absolute;
     color: white;
     top: 50px;
-    left: 50px;
+    left: 100px;
     z-index: 1;
 }
