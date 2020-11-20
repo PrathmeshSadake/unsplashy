@@ -1,6 +1,9 @@
-# Getting Started with Create React App
+# Unsplashy | Free Stock Images React Application 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<img src="https://github.com/PrathmeshSadake/unsplashy/blob/master/Readme%20Images/capture.PNG" width="100%" />
+<img src="https://github.com/PrathmeshSadake/unsplashy/blob/master/Readme%20Images/mobile.png" width="50%" />
+
+<hr>
 
 ## Available Scripts
 
