@@ -5,6 +5,13 @@
 
 <hr>
 
+- When you clone this repository, Make sure you change the API key.
+- Just replace my API key with yours in below folder.
+```
+src/api/unsplashAccessKey.js 
+```
+[Get your API key here](https://unsplash.com/developers)
+
 ## Available Scripts
 
 In the project directory, you can run:
