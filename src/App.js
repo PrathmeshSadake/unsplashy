@@ -1,18 +1,22 @@
 import Navbar from './components/Navbar';
 import { Routes, Route } from 'react-router-dom';
 import Homepage from './pages/Homepage';
-import SignInSide from './pages/Signin';
+import Signin from './pages/Signin';
 import SignUp from './pages/Signup';
+import { UserAuthContextProvider } from "./context/UserAuthContext";
 
 function App() {
   return (
     <div className='App'>
-      <Navbar />
+      <UserAuthContextProvider>
       <Routes>
-        <Route path='/' element={<Homepage />} />
+        <Route path='/home' element={<><Navbar/><Homepage /></>} />
         <Route path='/signup' element={<SignUp />} />
-        <Route path='/signin' element={<SignInSide />} />
+        <Route path='/' element={<Signin />} />x
       </Routes>
+
+      </UserAuthContextProvider>
+      
     </div>
   );
 }
