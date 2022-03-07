@@ -2,10 +2,12 @@ import * as React from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import style from "./search.module.css";
 
-const InputWithIcon = () => {
+const InputWithIcon = ({query}) => {
   const [input, setInput] = React.useState("");
-  const handleSubmit = () => {
-    // alert(input);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setInput(e.target.value)
+    query(input)
   };
   return (
     <div className="wrap">
