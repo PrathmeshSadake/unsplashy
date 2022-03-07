@@ -9,7 +9,7 @@ import SearchInput from '../components/SearchInput';
 let page = 0;
 
 const MasonryImageList = () => {
-  const API_KEY = "QQp3ol5zJcXuhz-YgezmveX9SFKoBfAARI0wOaDPwyw";
+  const API_KEY = process.env.API_KEY;
   const [imageData, setImageData] = React.useState([]);
   const fetchData = () => {
     page++;
