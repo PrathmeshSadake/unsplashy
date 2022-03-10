@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import axios from 'axios';
@@ -10,21 +9,28 @@ import SearchInput from '../components/SearchInput';
 let page = 0;
 
 const MasonryImageList = () => {
-  const API_KEY = process.env.REACT_APP_ACCESS_KEY;
+  const API_KEY = process.env.API_KEY;
   const [imageData, setImageData] = React.useState([]);
   const fetchData = () => {
     page++;
     axios
       .get(`https://api.unsplash.com/photos?page=${page}&client_id=${API_KEY}`)
-      .then((res) => setImageData(imageData.concat(res.data)))
+      .then((res) => {
+        setImageData(imageData.concat(res.data))
+      })
       .catch((err) => console.error(err));
-
-    console.log(page);
   };
   React.useEffect(() => {
     fetchData();
   }, []);
-  console.log(imageData);
+  const query = (data) => {
+    axios
+      .get(`https://api.unsplash.com/search/photos?page=1&client_id=${API_KEY}&query=${data}`)
+      .then((res) => {
+        setImageData(res.data.results)
+      })
+      .catch((err) => console.error(err));
+  }
   return (
     <InfiniteScroll
       dataLength={imageData.length} //This is important field to render the next data
@@ -69,7 +75,7 @@ const MasonryImageList = () => {
             background: 'rgba(0, 0, 0, 0.5)',
           }}
         >
-          <SearchInput />
+          <SearchInput query={query} />
         </Container>
       </Container>
       <Container maxWidth={false} sx={{ paddingTop: '2rem' }}>
