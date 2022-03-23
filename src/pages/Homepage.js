@@ -12,8 +12,10 @@ const MasonryImageList = () => {
   const API_KEY = process.env.REACT_APP_API_KEY;
   const [imageData, setImageData] = React.useState([]);
 
+  // MUI hooks to get breakpoints
   const theme = useTheme();
   const isAboveSm = useMediaQuery(theme.breakpoints.up("sm"));
+  const isAboveMd = useMediaQuery(theme.breakpoints.up("md"));
 
   const fetchData = () => {
     page++;
@@ -68,14 +70,15 @@ const MasonryImageList = () => {
           backgroundImage: "url(https://source.unsplash.com/random)",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
-          minHeight: "80vh",
+          minHeight: isAboveMd ? "80vh" : isAboveSm ? "60vh" : "50vh",
           overflow: "hidden",
           position: "relative",
         }}
       >
         <Container
-          maxWidth={false}
+          maxWidth={true}
           sx={{
+            backgroundColor: "red",
             position: "absolute",
             top: 0,
             bottom: 0,
@@ -87,6 +90,7 @@ const MasonryImageList = () => {
           <SearchInput query={query} />
         </Container>
       </Container>
+
       <Container maxWidth={false} sx={{ paddingTop: "2rem" }}>
         <ImageList
           variant="masonry"
