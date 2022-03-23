@@ -18,7 +18,7 @@ const InputWithIcon = ({ query }) => {
         The internet’s source of freely-usable images. Powered by creators
         everywhere.
       </div>
-      <form class="search" onSubmit={handleSubmit}>
+      <form className="search" onSubmit={handleSubmit}>
         <input
           type="text"
           className="searchTerm"

@@ -65,7 +65,7 @@ const MasonryImageList = () => {
       //   }
     >
       <Container
-        maxWidth={false}
+        maxWidth="false"
         sx={{
           backgroundImage: "url(https://source.unsplash.com/random)",
           backgroundRepeat: "no-repeat",
@@ -76,7 +76,7 @@ const MasonryImageList = () => {
         }}
       >
         <Container
-          maxWidth={true}
+          maxWidth="false"
           sx={{
             backgroundColor: "red",
             position: "absolute",
@@ -91,15 +91,15 @@ const MasonryImageList = () => {
         </Container>
       </Container>
 
-      <Container maxWidth={false} sx={{ paddingTop: "2rem" }}>
+      <Container maxWidth="false" sx={{ paddingTop: "2rem" }}>
         <ImageList
           variant="masonry"
           cols={isAboveSm ? 3 : 2}
           gap={15}
           sx={{ marginY: 0 }}
         >
-          {imageData.map((item) => (
-            <ImageListItem key={item.id}>
+          {imageData.map((item, index) => (
+            <ImageListItem key={item.id + index}>
               <img
                 src={`${item.urls.regular}`}
                 alt={item.description}
