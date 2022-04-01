@@ -13,9 +13,11 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useUserAuth } from "../context/UserAuthContext";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Alert } from "@mui/material";
+
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Alert } from '@mui/material';
+import {GoEye} from "react-icons/go";
 
 const theme = createTheme();
 
@@ -23,7 +25,10 @@ export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const { logIn } = useUserAuth();
+
+  const [isVisible,setIsVisible] = useState(false);
+  const {logIn} = useUserAuth();
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -75,7 +80,7 @@ export default function SignIn() {
               fullWidth
               name="password"
               label="Password"
-              type="password"
+              type={isVisible?"text":"password"}
               id="password"
               autoComplete="current-password"
               onChange={(e) => setPassword(e.target.value)}
@@ -83,6 +88,10 @@ export default function SignIn() {
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
+            />
+            <FormControlLabel
+              control={<Checkbox onClick={()=>setIsVisible(!isVisible)} value="visible" color="primary" />}
+              label="Show Password"
             />
             <Button
               type="submit"
