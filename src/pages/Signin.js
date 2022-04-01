@@ -15,12 +15,15 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useUserAuth } from "../context/UserAuthContext";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Alert } from "@mui/material";
+import {Alert, InputAdornment} from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import {Visibility, VisibilityOff} from "@mui/icons-material";
 
 const theme = createTheme();
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
+  const [showPassword, setShowPassword] = React.useState(false);
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const { logIn } = useUserAuth();
@@ -36,6 +39,10 @@ export default function SignIn() {
     } catch (err) {
       setError(err.message);
     }
+  };
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -75,10 +82,19 @@ export default function SignIn() {
               fullWidth
               name="password"
               label="Password"
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               id="password"
               autoComplete="current-password"
               onChange={(e) => setPassword(e.target.value)}
+              InputProps={{
+                endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton onClick={handleClickShowPassword}>
+                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                      </IconButton>
+                    </InputAdornment>
+                )
+              }}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
