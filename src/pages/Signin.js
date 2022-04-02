@@ -27,7 +27,10 @@ export default function SignIn() {
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
   const [error, setError] = useState("");
-  const { logIn } = useUserAuth();
+
+  const [isVisible,setIsVisible] = useState(false);
+  const {logIn} = useUserAuth();
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -107,6 +110,10 @@ export default function SignIn() {
             <FormControlLabel
               control={<Checkbox checked={remember} onChange={handleChange} color="primary" />}
               label="Remember me"
+            />
+            <FormControlLabel
+              control={<Checkbox onClick={()=>setIsVisible(!isVisible)} value="visible" color="primary" />}
+              label="Show Password"
             />
             <Button
               type="submit"
