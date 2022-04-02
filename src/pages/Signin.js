@@ -25,6 +25,7 @@ export default function SignIn() {
   const [email, setEmail] = useState("");
   const [showPassword, setShowPassword] = React.useState(false);
   const [password, setPassword] = useState("");
+  const [remember, setRemember] = useState(false);
   const [error, setError] = useState("");
   const { logIn } = useUserAuth();
   const navigate = useNavigate();
@@ -34,12 +35,19 @@ export default function SignIn() {
     setError("");
     try {
       const res = await logIn(email, password);
-      localStorage.setItem("accessToken", res.user.accessToken);
+      if(remember){
+        localStorage.setItem("accessToken", res.user.accessToken);
+      }
       navigate("/home");
     } catch (err) {
       setError(err.message);
     }
   };
+
+  const handleChange = (event) => {
+    setRemember(event.target.checked);
+  };
+
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -97,7 +105,7 @@ export default function SignIn() {
               }}
             />
             <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
+              control={<Checkbox checked={remember} onChange={handleChange} color="primary" />}
               label="Remember me"
             />
             <Button
