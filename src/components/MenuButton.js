@@ -1,13 +1,12 @@
 import { useState, useRef } from "react";
 import Box from "@mui/material/Box";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import SettingsIcon from "@mui/icons-material/Settings";
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import Avatar from "@mui/material/Avatar";
 import {
-    ClickAwayListener, Divider,
+    ClickAwayListener,
     Grow,
     MenuItem,
     MenuList,

@@ -53,31 +53,7 @@ const MasonryImageList = () => {
       //     <h3 style={{ textAlign: 'center' }}>&#8593; Release to refresh</h3>
       //   }
     >
-      <Container
-        maxWidth={false}
-        sx={{
-          backgroundImage: 'url(https://source.unsplash.com/random)',
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover',
-          minHeight: '80vh',
-          overflow: 'hidden',
-          position: 'relative',
-        }}
-      >
-        <Container
-          maxWidth={false}
-          sx={{
-            position: 'absolute',
-            top: 0,
-            bottom: 0,
-            left: 0,
-            right: 0,
-            background: 'rgba(0, 0, 0, 0.5)',
-          }}
-        >
-          <SearchInput query={query} />
-        </Container>
-      </Container>
+      <SearchInput query={query} />
       <Container maxWidth={false} sx={{ paddingTop: '2rem' }}>
         <ImageList variant='masonry' cols={3} gap={15} sx={{ marginY: 0 }}>
           {imageData.map((item) => (
