@@ -1,23 +1,23 @@
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import * as React from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useUserAuth } from "../context/UserAuthContext";
+
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Alert } from '@mui/material';
-
-
+import {GoEye} from "react-icons/go";
 
 const theme = createTheme();
 
@@ -25,20 +25,23 @@ export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
+  const [isVisible,setIsVisible] = useState(false);
   const {logIn} = useUserAuth();
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     try {
-      await logIn(email, password);
+      const res = await logIn(email, password);
+      localStorage.setItem("accessToken", res.user.accessToken);
       navigate("/home");
     } catch (err) {
       setError(err.message);
     }
   };
-
 
   return (
     <ThemeProvider theme={theme}>
@@ -47,12 +50,12 @@ export default function SignIn() {
         <Box
           sx={{
             marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
@@ -77,7 +80,7 @@ export default function SignIn() {
               fullWidth
               name="password"
               label="Password"
-              type="password"
+              type={isVisible?"text":"password"}
               id="password"
               autoComplete="current-password"
               onChange={(e) => setPassword(e.target.value)}
@@ -85,6 +88,10 @@ export default function SignIn() {
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
+            />
+            <FormControlLabel
+              control={<Checkbox onClick={()=>setIsVisible(!isVisible)} value="visible" color="primary" />}
+              label="Show Password"
             />
             <Button
               type="submit"
