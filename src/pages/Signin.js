@@ -1,23 +1,21 @@
-import * as React from "react";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
+import { Alert } from "@mui/material";
+import Avatar from "@mui/material/Avatar";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Checkbox from "@mui/material/Checkbox";
 import Container from "@mui/material/Container";
+import CssBaseline from "@mui/material/CssBaseline";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Grid from "@mui/material/Grid";
+import Link from "@mui/material/Link";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import * as React from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useUserAuth } from "../context/UserAuthContext";
-
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Alert } from '@mui/material';
-import {GoEye} from "react-icons/go";
 
 const theme = createTheme();
 
@@ -26,8 +24,8 @@ export default function SignIn() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const [isVisible,setIsVisible] = useState(false);
-  const {logIn} = useUserAuth();
+  const [isVisible, setIsVisible] = useState(false);
+  const { logIn } = useUserAuth();
 
   const navigate = useNavigate();
 
@@ -80,7 +78,7 @@ export default function SignIn() {
               fullWidth
               name="password"
               label="Password"
-              type={isVisible?"text":"password"}
+              type={isVisible ? "text" : "password"}
               id="password"
               autoComplete="current-password"
               onChange={(e) => setPassword(e.target.value)}
@@ -90,7 +88,13 @@ export default function SignIn() {
               label="Remember me"
             />
             <FormControlLabel
-              control={<Checkbox onClick={()=>setIsVisible(!isVisible)} value="visible" color="primary" />}
+              control={
+                <Checkbox
+                  onClick={() => setIsVisible(!isVisible)}
+                  value="visible"
+                  color="primary"
+                />
+              }
               label="Show Password"
             />
             <Button
