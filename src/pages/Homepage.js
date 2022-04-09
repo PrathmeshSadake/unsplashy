@@ -3,6 +3,9 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import axios from 'axios';
 
+import SimpleReactLightbox from "simple-react-lightbox";
+import { SRLWrapper } from "simple-react-lightbox";
+
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Container } from '@mui/material';
 import SearchInput from '../components/SearchInput';
@@ -79,17 +82,21 @@ const MasonryImageList = () => {
         </Container>
       </Container>
       <Container maxWidth={false} sx={{ paddingTop: '2rem' }}>
-        <ImageList variant='masonry' cols={3} gap={15} sx={{ marginY: 0 }}>
-          {imageData.map((item) => (
-            <ImageListItem key={item.id}>
-              <img
-                src={`${item.urls.regular}`}
-                alt={item.description}
-                loading='lazy'
-              />
-            </ImageListItem>
-          ))}
-        </ImageList>
+        <SimpleReactLightbox>
+          <SRLWrapper>
+            <ImageList variant='masonry' cols={3} gap={15} sx={{ marginY: 0 }}>
+              {imageData.map((item) => (
+                <ImageListItem key={item.id}>
+                  <img
+                    src={`${item.urls.regular}`}
+                    alt={item.description}
+                    loading='lazy'
+                  />
+                </ImageListItem>
+              ))}
+            </ImageList>
+          </SRLWrapper>
+        </SimpleReactLightbox>
       </Container>
     </InfiniteScroll>
     // <Box sx={{ width: 500, height: 450 }}>
