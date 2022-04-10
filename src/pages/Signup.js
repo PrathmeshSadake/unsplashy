@@ -15,13 +15,16 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUserAuth } from '../context/UserAuthContext';
-import { Alert } from '@mui/material';
+import {Alert, InputAdornment} from '@mui/material';
+import IconButton from "@mui/material/IconButton";
+import {Visibility, VisibilityOff} from "@mui/icons-material";
 
 const theme = createTheme();
 
 export default function SignUp() {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = React.useState(false);
   const [password, setPassword] = useState("");
   const [isVisible,setIsVisible] = useState(false);
   const {signUp} = useUserAuth();
@@ -37,6 +40,10 @@ export default function SignUp() {
     } catch (err) {
       setError(err.message);
     }
+  };
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -81,6 +88,15 @@ export default function SignUp() {
                   id="password"
                   autoComplete="new-password"
                   onChange={(e) => setPassword(e.target.value)}
+                  InputProps={{
+                    endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton onClick={handleClickShowPassword}>
+                            {showPassword ? <Visibility /> : <VisibilityOff />}
+                          </IconButton>
+                        </InputAdornment>
+                    )
+                  }}
                 />
                 <FormControlLabel
               control={<Checkbox onClick={()=>setIsVisible(!isVisible)} value="visible" color="primary" />}

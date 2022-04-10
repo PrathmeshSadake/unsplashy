@@ -13,17 +13,19 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useUserAuth } from "../context/UserAuthContext";
-
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Alert } from '@mui/material';
-import {GoEye} from "react-icons/go";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import {Alert, InputAdornment} from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import {Visibility, VisibilityOff} from "@mui/icons-material";
 
 const theme = createTheme();
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
+  const [showPassword, setShowPassword] = React.useState(false);
   const [password, setPassword] = useState("");
+  const [remember, setRemember] = useState(false);
   const [error, setError] = useState("");
 
   const [isVisible,setIsVisible] = useState(false);
@@ -36,11 +38,22 @@ export default function SignIn() {
     setError("");
     try {
       const res = await logIn(email, password);
-      localStorage.setItem("accessToken", res.user.accessToken);
+      if(remember){
+        localStorage.setItem("accessToken", res.user.accessToken);
+      }
       navigate("/home");
     } catch (err) {
       setError(err.message);
     }
+  };
+
+  const handleChange = (event) => {
+    setRemember(event.target.checked);
+  };
+
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -80,13 +93,22 @@ export default function SignIn() {
               fullWidth
               name="password"
               label="Password"
-              type={isVisible?"text":"password"}
+              type={showPassword ? 'text' : 'password'}
               id="password"
               autoComplete="current-password"
               onChange={(e) => setPassword(e.target.value)}
+              InputProps={{
+                endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton onClick={handleClickShowPassword}>
+                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                      </IconButton>
+                    </InputAdornment>
+                )
+              }}
             />
             <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
+              control={<Checkbox checked={remember} onChange={handleChange} color="primary" />}
               label="Remember me"
             />
             <FormControlLabel
