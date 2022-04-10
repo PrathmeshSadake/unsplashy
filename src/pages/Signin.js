@@ -16,7 +16,7 @@ import * as React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserAuth } from "../context/UserAuthContext";
-import {Alert, InputAdornment} from "@mui/material";
+import {InputAdornment} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 
@@ -51,7 +51,6 @@ export default function SignIn() {
   const handleChange = (event) => {
     setRemember(event.target.checked);
   };
-
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
