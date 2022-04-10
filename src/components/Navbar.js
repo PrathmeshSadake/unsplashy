@@ -76,7 +76,9 @@ const Navbar = () => {
                 component="div"
                 sx={{ mr: 2, display: { xs: "none", md: "block" } }}
               >
-                LOGO
+                <div>
+                  <img src={LOGO} alt="Unsplashy" />
+                </div>
               </Typography>
 
               {/* Page buttons */}
