@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { useUserAuth } from "../context/UserAuthContext";
 import NavbarDrawer from "./NavbarDrawer";
 import NavbarUserMenu from "./NavbarUserMenu";
+import LOGO from "./images/logo.png";
 
 const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard"];
@@ -75,7 +76,9 @@ const Navbar = () => {
                 component="div"
                 sx={{ mr: 2, display: { xs: "none", md: "block" } }}
               >
-                LOGO
+                <div>
+                  <img src={LOGO} alt="Unsplashy" />
+                </div>
               </Typography>
 
               {/* Page buttons */}
@@ -124,7 +127,9 @@ const Navbar = () => {
                 noWrap
                 sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
               >
-                LOGO
+                <div>
+                   <img src={LOGO} alt="Unsplashy" />
+                </div>
               </Typography>
             </>
           )}
