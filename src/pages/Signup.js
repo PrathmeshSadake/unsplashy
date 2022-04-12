@@ -26,6 +26,7 @@ export default function SignUp() {
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = React.useState(false);
   const [password, setPassword] = useState("");
+  const [isVisible,setIsVisible] = useState(false);
   const {signUp} = useUserAuth();
   let navigate = useNavigate();
 
@@ -83,7 +84,7 @@ export default function SignUp() {
                   fullWidth
                   name="password"
                   label="Password"
-                  type="password"
+                  type={isVisible?"text":"password"}
                   id="password"
                   autoComplete="new-password"
                   onChange={(e) => setPassword(e.target.value)}
@@ -97,6 +98,10 @@ export default function SignUp() {
                     )
                   }}
                 />
+                <FormControlLabel
+              control={<Checkbox onClick={()=>setIsVisible(!isVisible)} value="visible" color="primary" />}
+              label="Show Password"
+            />
               </Grid>
             </Grid>
             <Button

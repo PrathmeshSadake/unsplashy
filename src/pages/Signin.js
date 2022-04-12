@@ -1,21 +1,22 @@
-import * as React from "react";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
+import { Alert } from "@mui/material";
+import Avatar from "@mui/material/Avatar";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Checkbox from "@mui/material/Checkbox";
 import Container from "@mui/material/Container";
+import CssBaseline from "@mui/material/CssBaseline";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Grid from "@mui/material/Grid";
+import Link from "@mui/material/Link";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useUserAuth } from "../context/UserAuthContext";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import * as React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {Alert, InputAdornment} from "@mui/material";
+import { useUserAuth } from "../context/UserAuthContext";
+import {InputAdornment} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 
@@ -27,7 +28,10 @@ export default function SignIn() {
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
   const [error, setError] = useState("");
+
+  const [isVisible, setIsVisible] = useState(false);
   const { logIn } = useUserAuth();
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -47,7 +51,6 @@ export default function SignIn() {
   const handleChange = (event) => {
     setRemember(event.target.checked);
   };
-
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -107,6 +110,16 @@ export default function SignIn() {
             <FormControlLabel
               control={<Checkbox checked={remember} onChange={handleChange} color="primary" />}
               label="Remember me"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  onClick={() => setIsVisible(!isVisible)}
+                  value="visible"
+                  color="primary"
+                />
+              }
+              label="Show Password"
             />
             <Button
               type="submit"

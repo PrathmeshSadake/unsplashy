@@ -1,7 +1,6 @@
 import {useEffect, useRef, useState} from 'react';
 import Box from "@mui/material/Box";
 import SearchIcon from "@mui/icons-material/Search";
-import style from "./search.module.css";
 import Container from "@mui/material/Container";
 
 export default function InputWithIcon({query}) {
@@ -54,4 +53,3 @@ export default function InputWithIcon({query}) {
       </>
   );
 }
-
