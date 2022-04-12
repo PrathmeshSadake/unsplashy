@@ -35,24 +35,39 @@ const Navbar = ()  => {
     setMobOpen(!mobOpen);
   };
 
+  const [onTop, setOnTop] = useState(true);
+  const navRef = useRef();
+
+  useEffect(() => {
+      const position = navRef.current.offsetTop;
+      window.onscroll = function () {
+          if (window.pageYOffset > position) {
+              setOnTop(false);
+          } else {
+              setOnTop(true);
+          }
+      };
+  });
+
   const drawerWidth = 220;
   const appbarHeight = 55;
-
 
   return (
       <>
         <AppBar
             color={"transparent"}
-            elevation={0}
+            ref={navRef}
+            elevation={!onTop ? 4 : 0}
             position="fixed"
         >
           <Box
               display={"flex"}
               justifyContent={"space-between"}
               alignItems={"center"}
-              p={1}
-              bgcolor={"#FFF"}
-              color={"#000"}
+              py={0.5}
+              px={1}
+              bgcolor={!onTop ? "#317CEB" : ""}
+              color={!onTop ? "#FFF" : "#317CEB"}
           >
             <Hidden mdUp>
               <IconButton
