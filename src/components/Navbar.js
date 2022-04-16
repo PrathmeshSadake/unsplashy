@@ -1,178 +1,153 @@
-import * as React from "react";
-import MenuIcon from "@mui/icons-material/Menu";
-import { useMediaQuery, useTheme } from "@mui/material";
+import { useEffect, useRef, useState } from "react";
 import AppBar from "@mui/material/AppBar";
-import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
+import Hidden from "@mui/material/Hidden";
 import Button from "@mui/material/Button";
-import Container from "@mui/material/Container";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
 import IconButton from "@mui/material/IconButton";
-import Toolbar from "@mui/material/Toolbar";
-import Tooltip from "@mui/material/Tooltip";
-import Typography from "@mui/material/Typography";
-import { useNavigate } from "react-router-dom";
-import { useUserAuth } from "../context/UserAuthContext";
-import NavbarDrawer from "./NavbarDrawer";
-import NavbarUserMenu from "./NavbarUserMenu";
-import LOGO from "./images/logo.png";
+import Drawer from "@mui/material/Drawer";
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
+import { createStyles, makeStyles } from "@mui/styles";
+import MenuButton from "./MenuButton";
 
-const pages = ["Products", "Pricing", "Blog"];
-const settings = ["Profile", "Account", "Dashboard"];
+const useStyles = makeStyles(() =>
+    createStyles({
+      tab: {
+        fontSize: "20px",
+        marginRight: "30px",
+        "&:hover,&:focus": {
+          fontWeight: "600",
+        },
+        cursor: "pointer",
+      },
+    })
+);
 
-const Navbar = () => {
-  const { user, logOut } = useUserAuth();
-  const navigate = useNavigate();
-  // const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
+const Navbar = ()  => {
+  const classes = useStyles();
+  const pages = ["Products", "Pricing", "Blog"];
+  // const settings = ["Profile", "Account", "Dashboard"];
 
-  const theme = useTheme();
-  const isAboveMdScreen = useMediaQuery(theme.breakpoints.up("md"));
-
-  const handleLogout = async () => {
-    try {
-      await logOut();
-      navigate("/");
-    } catch (error) {
-      console.log(error.message);
-    }
+  const [mobOpen, setMobOpen] = useState(false);
+  const handleMobDrawer = () => {
+    setMobOpen(!mobOpen);
   };
 
-  const toggleDrawer = () => {
-    setIsDrawerOpen((prev) => !prev);
-  };
+  const [onTop, setOnTop] = useState(true);
+  const navRef = useRef();
 
-  // const handleOpenNavMenu = (event) => {
-  //   setAnchorElNav(event.currentTarget);
-  // };
+  useEffect(() => {
+      const position = navRef.current.offsetTop;
+      window.onscroll = function () {
+          if (window.pageYOffset > position) {
+              setOnTop(false);
+          } else {
+              setOnTop(true);
+          }
+      };
+  });
 
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  // const handleCloseNavMenu = () => {
-  //   setAnchorElNav(null);
-  // };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+  const drawerWidth = 220;
+  const appbarHeight = 55;
 
   return (
-    <AppBar
-      position="static"
-      color="transparent"
-      sx={{ color: "#000", paddingY: ".5rem" }}
-      elevation={0}
-    >
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          {isAboveMdScreen ? (
-            <>
-              {/* Medium size screen title */}
-              <Typography
-                variant="h6"
-                noWrap
-                component="div"
-                sx={{ mr: 2, display: { xs: "none", md: "block" } }}
-              >
-                <div>
-                  <img src={LOGO} alt="Unsplashy" />
-                </div>
-              </Typography>
-
-              {/* Page buttons */}
-              <Box
-                sx={{
-                  flexGrow: 1,
-                  marginLeft: "5rem",
-                  display: { xs: "none", md: "flex" },
-                }}
-              >
-                {pages.map((page) => (
-                  <Button
-                    key={page}
-                    sx={{ my: 2, color: "black", display: "block" }}
-                  >
-                    {page}
-                  </Button>
-                ))}
-              </Box>
-            </>
-          ) : (
-            <>
-              {/* Menu icon button and drawer */}
-              <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-                <IconButton
-                  size="large"
-                  aria-label="account of current user"
-                  aria-controls="menu-appbar"
-                  aria-haspopup="true"
-                  onClick={toggleDrawer}
-                  color="inherit"
-                >
-                  <MenuIcon />
-                </IconButton>
-
-                <NavbarDrawer
-                  pagesList={pages}
-                  isDrawerOpen={isDrawerOpen}
-                  toggleDrawer={toggleDrawer}
-                />
-              </Box>
-
-              {/* Small screen title */}
-              <Typography
-                variant="h6"
-                noWrap
-                sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
-              >
-                <div>
-                   <img src={LOGO} alt="Unsplashy" />
-                </div>
-              </Typography>
-            </>
-          )}
-
-          {/* User menu and logout button */}
+      <>
+        <AppBar
+            color={"transparent"}
+            ref={navRef}
+            elevation={!onTop ? 4 : 0}
+            position="fixed"
+        >
           <Box
-            sx={{
-              flexGrow: 0,
-              display: "flex",
-              gap: "1.5rem",
-            }}
+              display={"flex"}
+              justifyContent={"space-between"}
+              alignItems={"center"}
+              py={0.5}
+              px={1}
+              bgcolor={!onTop ? "#317CEB" : ""}
+              color={!onTop ? "#FFF" : "#317CEB"}
           >
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" />
-                </IconButton>
-              </Tooltip>
-
-              <NavbarUserMenu
-                settingsList={settings}
-                anchorElUser={anchorElUser}
-                handleCloseUserMenu={handleCloseUserMenu}
-                handleLogout={handleLogout}
-              />
-
-              {isAboveMdScreen && (
-                <Typography
-                  component="span"
-                  sx={{
-                    marginLeft: "0.5rem",
+            <Hidden mdUp>
+              <IconButton
+                  onClick={() => {
+                    setMobOpen(true);
                   }}
-                >
-                  {user && user.email}
-                </Typography>
-              )}
+              >
+                <MenuIcon />
+              </IconButton>
+            </Hidden>
+            <Box
+                display={"flex"}
+                justifyContent={"space-between"}
+                alignItems={"center"}
+            >
+              <Box
+                 mt={0.5}
+              >
+                <img src={"logos/logo.png"} alt={"logo"} />
+              </Box>
+              <Hidden mdDown>
+                <Box mr={10} />
+                {pages.map((each) => (
+                    <Box
+                        key={each}
+                        className={classes.tab}
+                    >
+                      {each}
+                    </Box>
+                ))}
+              </Hidden>
             </Box>
-
-            {isAboveMdScreen && <Button onClick={handleLogout}>Logout</Button>}
+            <MenuButton  />
           </Box>
-        </Toolbar>
-      </Container>
-    </AppBar>
+        </AppBar>
+
+        {/*==========================================*/}
+
+        <Drawer open={mobOpen} onClose={handleMobDrawer}>
+          <Box display={"flex"} width={drawerWidth}>
+            <List>
+              <ListItem
+                  component={Box}
+                  px={2}
+                  display={"flex"}
+                  alignItems={"center"}
+              >
+                <Box
+                    display={"flex"}
+                    alignItems={"center"}
+                    href={"/"}
+                    onClick={handleMobDrawer}
+                    height={appbarHeight}
+                >
+                  <Box>
+                    LOGO
+                  </Box>
+                </Box>
+                <Box ml={12} />
+                <div>
+                  <IconButton onClick={handleMobDrawer}>
+                    <CloseIcon />
+                  </IconButton>
+                </div>
+              </ListItem>
+              <Box mt={1} />
+              {pages.map((each, index) => (
+                  <ListItem key={each}>
+                    <Box />
+                    <Button>
+                      {each}
+                    </Button>
+                  </ListItem>
+              ))}
+            </List>
+          </Box>
+        </Drawer>
+      </>
   );
 };
+
 export default Navbar;
+
