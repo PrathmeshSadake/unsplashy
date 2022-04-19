@@ -28,7 +28,7 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [isVisible,setIsVisible] = useState(false);
   const {signUp} = useUserAuth();
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
 
   const handleSubmit = async (e) => {
@@ -84,24 +84,21 @@ export default function SignUp() {
                   fullWidth
                   name="password"
                   label="Password"
-                  type={isVisible?"text":"password"}
+                  type={showPassword?"text":"password"}
                   id="password"
                   autoComplete="new-password"
                   onChange={(e) => setPassword(e.target.value)}
                   InputProps={{
                     endAdornment: (
-                        <InputAdornment position="end">
-                          <IconButton onClick={handleClickShowPassword}>
-                            {showPassword ? <Visibility /> : <VisibilityOff />}
-                          </IconButton>
-                        </InputAdornment>
+                      <InputAdornment position="end">
+                      <IconButton onClick={handleClickShowPassword}>
+                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                      </IconButton>
+                    </InputAdornment>
                     )
                   }}
                 />
-                <FormControlLabel
-              control={<Checkbox onClick={()=>setIsVisible(!isVisible)} value="visible" color="primary" />}
-              label="Show Password"
-            />
+                
               </Grid>
             </Grid>
             <Button
