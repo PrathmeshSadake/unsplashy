@@ -38,7 +38,7 @@ function App() {
             }
           />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/" element={<Signin />} />x
+          <Route path="/" element={<Signin />} />
         </Routes>
       </UserAuthContextProvider>
     </div>

@@ -6,6 +6,7 @@ import axios from 'axios';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Container } from '@mui/material';
 import SearchInput from '../components/SearchInput';
+
 let page = 0;
 
 const MasonryImageList = () => {
