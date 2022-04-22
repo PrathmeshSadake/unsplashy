@@ -111,16 +111,7 @@ export default function SignIn() {
               control={<Checkbox checked={remember} onChange={handleChange} color="primary" />}
               label="Remember me"
             />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  onClick={() => setIsVisible(!isVisible)}
-                  value="visible"
-                  color="primary"
-                />
-              }
-              label="Show Password"
-            />
+           
             <Button
               type="submit"
               onSubmit={handleSubmit}
