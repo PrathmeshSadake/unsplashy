@@ -1,159 +1,153 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import { useUserAuth } from '../context/UserAuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useRef, useState } from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Hidden from "@mui/material/Hidden";
+import Button from "@mui/material/Button";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import IconButton from "@mui/material/IconButton";
+import Drawer from "@mui/material/Drawer";
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
+import { createStyles, makeStyles } from "@mui/styles";
+import MenuButton from "./MenuButton";
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard'];
+const useStyles = makeStyles(() =>
+    createStyles({
+      tab: {
+        fontSize: "20px",
+        marginRight: "30px",
+        "&:hover,&:focus": {
+          fontWeight: "600",
+        },
+        cursor: "pointer",
+      },
+    })
+);
 
-const Navbar = () => {
-  const {user,logOut} = useUserAuth();
-  const navigate = useNavigate();
-  const handleLogout = async () => {
-    try {
-      await logOut();
-      navigate("/");
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+const Navbar = ()  => {
+  const classes = useStyles();
+  const pages = ["Products", "Pricing", "Blog"];
+  // const settings = ["Profile", "Account", "Dashboard"];
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
+  const [mobOpen, setMobOpen] = useState(false);
+  const handleMobDrawer = () => {
+    setMobOpen(!mobOpen);
   };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
+  const [onTop, setOnTop] = useState(true);
+  const navRef = useRef();
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+  useEffect(() => {
+      const position = navRef.current.offsetTop;
+      window.onscroll = function () {
+          if (window.pageYOffset > position) {
+              setOnTop(false);
+          } else {
+              setOnTop(true);
+          }
+      };
+  });
+
+  const drawerWidth = 220;
+  const appbarHeight = 55;
 
   return (
-    <AppBar
-      position='static'
-      color='transparent'
-      sx={{ color: '#000', paddingY: '.5rem' }}
-      elevation={0}
-    >
-      <Container maxWidth='xl'>
-        <Toolbar disableGutters>
-          <Typography
-            variant='h6'
-            noWrap
-            component='div'
-            sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
+      <>
+        <AppBar
+            color={"transparent"}
+            ref={navRef}
+            elevation={!onTop ? 4 : 0}
+            position="fixed"
+        >
+          <Box
+              display={"flex"}
+              justifyContent={"space-between"}
+              alignItems={"center"}
+              py={0.5}
+              px={1}
+              bgcolor={!onTop ? "#317CEB" : ""}
+              color={!onTop ? "#FFF" : "#317CEB"}
           >
-            LOGO
-          </Typography>
-
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size='large'
-              aria-label='account of current user'
-              aria-controls='menu-appbar'
-              aria-haspopup='true'
-              onClick={handleOpenNavMenu}
-              color='inherit'
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id='menu-appbar'
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign='center'>{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          <Typography
-            variant='h6'
-            noWrap
-            component='div'
-            sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
-          >
-            LOGO
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'black', display: 'block' }}
+            <Hidden mdUp>
+              <IconButton
+                  onClick={() => {
+                    setMobOpen(true);
+                  }}
               >
-                {page}
-              </Button>
-            ))}
-          </Box>
-
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title='Open settings'>
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt='Remy Sharp' />
+                <MenuIcon />
               </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id='menu-appbar'
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
+            </Hidden>
+            <Box
+                display={"flex"}
+                justifyContent={"space-between"}
+                alignItems={"center"}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign='center'>{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-            {user && user.email}
-            <Button onClick={handleLogout}>Logout</Button>
+              <Box
+                 mt={0.5}
+              >
+                <img src={"logos/logo.png"} alt={"logo"} />
+              </Box>
+              <Hidden mdDown>
+                <Box mr={10} />
+                {pages.map((each) => (
+                    <Box
+                        key={each}
+                        className={classes.tab}
+                    >
+                      {each}
+                    </Box>
+                ))}
+              </Hidden>
+            </Box>
+            <MenuButton  />
           </Box>
-        </Toolbar>
-      </Container>
-    </AppBar>
+        </AppBar>
+
+        {/*==========================================*/}
+
+        <Drawer open={mobOpen} onClose={handleMobDrawer}>
+          <Box display={"flex"} width={drawerWidth}>
+            <List>
+              <ListItem
+                  component={Box}
+                  px={2}
+                  display={"flex"}
+                  alignItems={"center"}
+              >
+                <Box
+                    display={"flex"}
+                    alignItems={"center"}
+                    href={"/"}
+                    onClick={handleMobDrawer}
+                    height={appbarHeight}
+                >
+                  <Box>
+                    LOGO
+                  </Box>
+                </Box>
+                <Box ml={12} />
+                <div>
+                  <IconButton onClick={handleMobDrawer}>
+                    <CloseIcon />
+                  </IconButton>
+                </div>
+              </ListItem>
+              <Box mt={1} />
+              {pages.map((each, index) => (
+                  <ListItem key={each}>
+                    <Box />
+                    <Button>
+                      {each}
+                    </Button>
+                  </ListItem>
+              ))}
+            </List>
+          </Box>
+        </Drawer>
+      </>
   );
 };
+
 export default Navbar;
+
