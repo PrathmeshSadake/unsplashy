@@ -6,6 +6,7 @@ import Signin from "./pages/Signin";
 import SignUp from "./pages/Signup";
 import { UserAuthContextProvider } from "./context/UserAuthContext";
 import {useEffect} from "react";
+import ForgetPassword from "./pages/ForgetPassword";
 
 function App() {
   useEffect(() => {
@@ -39,6 +40,7 @@ function App() {
           />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/" element={<Signin />} />
+          <Route path="/forgetpassword" element={<ForgetPassword />} />
         </Routes>
       </UserAuthContextProvider>
     </div>
