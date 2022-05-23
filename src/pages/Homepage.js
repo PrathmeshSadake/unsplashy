@@ -11,11 +11,12 @@ let page = 0;
 
 const MasonryImageList = () => {
   const API_KEY = process.env.API_KEY;
+  const key = 'IJRFi1nxnyWaot_Tswh7yStKZim0VKZ7jSw2UVfTmE4';
   const [imageData, setImageData] = React.useState([]);
   const fetchData = () => {
     page++;
     axios
-      .get(`https://api.unsplash.com/photos?page=${page}&client_id=${API_KEY}`)
+      .get(`https://api.unsplash.com/photos?page=${page}&client_id=${key}`)
       .then((res) => {
         setImageData(imageData.concat(res.data))
       })
